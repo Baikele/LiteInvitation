@@ -93,19 +93,25 @@ public class BasicCommand implements CommandExecutor {
                 return true;
             }
             if (args[0].equalsIgnoreCase("Accept")){
-                if (args.length != 2){
-                    sender.sendMessage(InvitationMain.prefix+ Objects.requireNonNull(message.getString("CommandError")).replace("&","§"));
+                if(sender.hasPermission("LiteInvitation.Accept")) {
+                    if (args.length != 2){
+                        sender.sendMessage(InvitationMain.prefix+ Objects.requireNonNull(message.getString("CommandError")).replace("&","§"));
+                        return true;
+                    }
+                    String inputCode = args[1];
+                    CommandUtils commandUtils = new CommandUtils();
+                    try {
+                        commandUtils.onAcceptCommand((Player)sender,inputCode);
+                    } catch (IOException | SQLException e) {
+                        sender.sendMessage(InvitationMain.prefix+ Objects.requireNonNull(message.getString("UnknownError")).replace("&","§"));
+                    }
+                    return true;
+                }else {
+                    sender.sendMessage(InvitationMain.prefix+ Objects.requireNonNull(message.getString("PermissionError")).replace("&","§"));
                     return true;
                 }
-                String inputCode = args[1];
-                CommandUtils commandUtils = new CommandUtils();
-                try {
-                    commandUtils.onAcceptCommand((Player)sender,inputCode);
-                } catch (IOException | SQLException e) {
-                    sender.sendMessage(InvitationMain.prefix+ Objects.requireNonNull(message.getString("UnknownError")).replace("&","§"));
-                }
-                return true;
             }
+
             sender.sendMessage(InvitationMain.prefix+ Objects.requireNonNull(message.getString("CommandError")).replace("&","§"));
             return true;
         }

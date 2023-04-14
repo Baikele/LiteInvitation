@@ -6,7 +6,7 @@
 
     <groupId>durham.plugin</groupId>
     <artifactId>LiteInvitation</artifactId>
-    <version>1.4.8-SNAPSHOT</version>
+    <version>1.4.8-SNAPSHOT-addper</version>
     <packaging>jar</packaging>
 
     <name>LiteInvitation</name>
